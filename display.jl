@@ -28,20 +28,19 @@ function run_from_Start(length,red,black)
    init_board(GB,red,black)
    while(i<=length)
      #get the 2nd argument from the target coordinate
-     #in the right order.
-     #target cords
-     ## if errors its here.
-     #target_cords = get_targetCords(filename,i)
 
-     #print(target_cords)
+     source_cords = get_sourceCords(filename,i)
+     target_cords = get_targetCords(filename,i)
+     print("source",source_cords)
+     print("target",target_cords)
 
     #   if(i%2==0)
-    #   piece = red_pieces.activeS[(target_cords)]
+     piece = red_pieces.activeS[(source_cords)]
     #  else
     #    piece = black_pieces.activeS[(target_cords)]
     #  end
 
-      #move_piece(GB,red_pieces,black_pieces,piece,target_cords)
+     move_piece(GB,red_pieces,black_pieces,piece,target_cords)
      display_board(GB,red_pieces,black_pieces)
      i = i+1
      #the time
