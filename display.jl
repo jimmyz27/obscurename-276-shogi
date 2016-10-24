@@ -1,5 +1,8 @@
 #in order to compile i changed shogi.jl, board array to board1
 #and database.jl with some testcases.
+function input()
+	return chomp(readline(STDIN))
+end
 
 println("what game would you like to replay? (M for minishogi, S for standard Shogi")
 replay_type = input()
@@ -24,7 +27,7 @@ println()
 fill_black(black_pieces)
 init_board(GB,red_pieces,black_pieces)
 #length is the total number of moves.
-
+#length = get_totalMoves(filename)
 
 function replay_game(length,red,black)
    i = 1
@@ -39,21 +42,17 @@ function replay_game(length,red,black)
      println("i ",i%2)
       if i%2==1
         piece = red_pieces.activeS[(source_cords)]
-
         move_piece(GB,red_pieces,black_pieces,piece,target_cords)
-
       else
         piece = black_pieces.activeS[(source_cords)]
         move_piece(GB,black_pieces,red_pieces,piece,target_cords)
         #moves the piece
         println("piece is",piece)
       end
-
      display_board(GB,red_pieces,black_pieces)
      i = i+1
      #println("i ",i)
      #the time
    end
-
 end
-replay_game(11,red_pieces,black_pieces)
+replay_game(17,red_pieces,black_pieces)
