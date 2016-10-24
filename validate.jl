@@ -1,16 +1,22 @@
 #valiadate standard shogi is done.
 #validate, mini shogi,
 # win.jl for both aswell.
-include("shogi.jl")
+
 include("database.jl")
 
 
 println("what type of shogi do you wish to validate standard:S, or mini:M")
 game_type = input()
 
-include("move_functions.jl")
-include("shogi.jl")
-
+# if game_type == "S"
+  include("move_functions.jl")
+  include("shogi.jl")
+println("gametype is standard")
+# elseif game_type =="M"
+#   include("move_functions_minishogi.jl")
+#   include("minishogi.jl")
+#   println("gametype is mini")
+# end
 #only validating for Standard shogi.
 #
 red_pieces = Pieces("red")
