@@ -16,9 +16,13 @@ function move_red_p(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 
 	# if pawn is unpromoted, there is only one possible move: (x,y+1)
 	if piece[1] == 'p'
-		cords == legal[1] ?
-			move_piece(B,set,inactive,piece,cords) :
-			println("illegal move")
+		if cords == legal[1]
+
+			move_piece(B,set,inactive,piece,cords)
+			println("0")
+		else
+			println("illegal move")#what is the move number
+		end
 	else # pawn is promoted to gold general - shiiiet
 		if y != 5 && x != 5 && x != 1
 			haskey(set.activeS,(x+1,y+1)) == 0 && push!(legal,(x+1,y+1))
@@ -48,7 +52,9 @@ function move_red_p(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 		end
 		# check if user input matches a legal move
 		if findfirst(legal,cords) != 0
+
 			move_piece(B, set, inactive, piece, cords)
+			println("0")
 		else
 			println("illegal move")
 			B.status = 0
@@ -74,9 +80,12 @@ function move_black_p(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 
 	# if pawn is unpromoted, there is only one possible move: (x,y-1)
 	if piece[1] == 'p'
-		cords == legal[1] ?
-			move_piece(B,set,inactive,piece,cords) :
+		if(cords == legal[1] )
+			move_piece(B,set,inactive,piece,cords)
+			println("0")
+		else
 			println("illegal move")
+		end
 	else # pawn is promoted to gold general - shiiiet
 		if y != 1 && x != 1 && x != 5
 			haskey(set.activeS,(x-1,y-1)) == 0 && push!(legal,(x-1,y-1))
@@ -106,6 +115,7 @@ function move_black_p(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 		if findfirst(legal,cords) != 0
 			println("hi")
 			move_piece(B, set, inactive, piece, cords)
+			println("0")
 		else
 			println("illegal move")
 			B.status = 0
@@ -152,8 +162,9 @@ function move_red_g(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 		haskey(set.activeS,(x,y-1)) == 0 && push!(legal,(x,y-1))
 	end
 	# check if user input matches a legal move
-	if findfirst(legal,cords) != 0
+	if findfirst(legal,cords) !=
 		move_piece(B, set, inactive, piece, cords)
+		println("0")
 	else
 		println("illegal move")
 		B.status = 0
@@ -200,6 +211,7 @@ function move_black_g(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 	# check if user input matches a legal move
 	if findfirst(legal,cords) != 0
 		move_piece(B, set, inactive, piece, cords)
+		println("0")
 	else
 		println("illegal move")
 		B.status = 0
@@ -250,6 +262,7 @@ function move_red_k(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 	# check if user input matches a legal move
 	if findfirst(legal,cords) != 0
 		move_piece(B, set, inactive, piece, cords)
+		println("0")
 	else
 		println("illegal move")
 		B.status = 0
@@ -298,7 +311,9 @@ function move_black_k(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 	end
 	# check if user input matches a legal move
 	if findfirst(legal,cords) != 0
+
 		move_piece(B, set, inactive, piece, cords)
+			println("0")
 	else
 		println("illegal move")
 		B.status = 0
@@ -317,6 +332,7 @@ function move_red_s(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 		return
 	elseif piece[1] == 'S' # if silver general is promoted
 		move_red_g(B,set,inactive,piece,cords)
+		println("0")
 	elseif piece[1] == 's' # if silver general is unpromoted
 		if y != 5 && x != 5 && x != 1
 			haskey(set.activeS,(x,y+1)) == 0 && push!(legal,(x,y+1))
@@ -337,7 +353,9 @@ function move_red_s(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 	end
 	# check if user input matches a legal move
 	if findfirst(legal,cords) != 0
+
 		move_piece(B, set, inactive, piece, cords)
+		println("0")
 	else
 		println("illegal move")
 	end
@@ -354,6 +372,7 @@ function move_black_s(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 		return
 	elseif piece[1] == 'S'
 		move_black_g(B,set,inactive,piece,cords)
+		println("0")
 		return
 	elseif piece[1] == 's'
 		if y != 1 && x != 1 && x != 5
@@ -375,6 +394,7 @@ function move_black_s(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 		# check if user input matches a legal move
 		if findfirst(legal,cords) != 0
 			move_piece(B, set, inactive, piece, cords)
+			println("0")
 		else
 			println("illegal move")
 		end
@@ -392,6 +412,7 @@ function move_red_n(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 		return
 	elseif piece[1] == 'N' # check for promotion
 		move_red_g(B,set,inactive,piece,cords)
+		println("0")
 		return
 	elseif y < 8 && x != 5 && x != 1
 		haskey(set.activeS,(x-1,y+2)) == 0 && push!(legal,(x-1,y+2))
@@ -404,6 +425,7 @@ function move_red_n(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 	# check if user input matches a legal move
 	if findfirst(legal,cords) != 0
 		move_piece(B, set, inactive, piece, cords)
+		println("0")
 	else
 		println("illegal move")
 	end
@@ -420,6 +442,7 @@ function move_black_n(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 		return
 	elseif piece[1] == 'N' # check for promotion
 		move_black_g(B,set,inactive,piece,cords)
+		println("0")
 	elseif y > 2 && x != 1 && x != 5
 		haskey(set.activeS,(x-1,y-2)) == 0 && push!(legal,(x-1,y-2))
 		haskey(set.activeS,(x+1,y-2)) == 0 && push!(legal,(x+1,y-2))
@@ -431,6 +454,7 @@ function move_black_n(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 	# check if user input matches a legal move
 	if findfirst(legal,cords) != 0
 		move_piece(B, set, inactive, piece, cords)
+		println("0")
 	else
 		println("illegal move")
 		B.status = 0
@@ -456,6 +480,7 @@ function move_king(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 		println("illegal move"); return
 	else # legal move
 		move_piece(B,set,enemy,piece,cords)
+		println("0")
 	end
 end
 
@@ -475,7 +500,9 @@ function move_bishop(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 	# check if promoted to DRAGON HORSE!!!
 	if piece[1] == 'B'
 	  if delta_x == 1 && delta_y == 1
-	  	move_piece(B,set,enemy,piece,new_cords); return
+	  	move_piece(B,set,enemy,piece,new_cords)
+			println("0")
+			return
 	  end
 	end
 	# otherwise compare if unequal => illegal
@@ -488,6 +515,7 @@ function move_bishop(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 			new_cords::Tuple{Int64,Int64} = (xi+i,yi+i)
 			if haskey(enemy.activeS,new_cords) == true # if enemy is in the way
 				move_piece(B,set,enemy,piece,new_cords)
+				println("0")
 				return
 			elseif haskey(set.activeS,new_cords) == true
 				println("illegal move"); return
@@ -495,12 +523,15 @@ function move_bishop(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 		end
 		# if execution falls here then move is legal
 		move_piece(B,set,enemy,piece,cords)
+		println("0")
 	# if moving towards bottom right (5,1)
 	elseif x > xi && y < yi
 		for i = 1:(delta_x-1)
 			new_cords::Tuple{Int64,Int64} = (xi+i,yi-i)
 			if haskey(enemy.activeS,new_cords) == true
-				move_piece(B,set,enemy,piece,new_cords); return
+				move_piece(B,set,enemy,piece,new_cords)
+				println("0")
+				 return
 			elseif haskey(set.activeS,new_cords) == true
 				println("illegal move"); return
 			end
@@ -511,23 +542,29 @@ function move_bishop(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 		for i = 1:(delta_x-1)
 			new_cords::Tuple{Int64,Int64} = (xi-i,yi-i)
 			if haskey(enemy.activeS,new_cords) == true
-				move_piece(B,set,enemy,piece,new_cords); return
+				move_piece(B,set,enemy,piece,new_cords)
+					println("0")
+				 return
 			elseif haskey(set.activeS,new_cords) == true
 				println("illegal move"); return
 			end
 		end
 		move_piece(B,set,enemy,piece,cords)
+		println("0")
 	# if moving towards top left (1,5)
 	elseif x < xi && y > yi
 		for i = 1:delta_x
 			new_cords::Tuple{Int64,Int64} = (xi-i,yi+i)
 			if haskey(enemy.activeS,new_cords) == true
-				move_piece(B,set,enemy,piece,new_cords); return
+				move_piece(B,set,enemy,piece,new_cords)
+						println("0")
+				 return
 			elseif haskey(set.activeS,new_cords) == true
 				println("illegal move"); return
 			end
 		end
 		move_piece(B,set,enemy,piece,cords)
+		println("0")
 	end
 	# IF EXECUTION FALLS HERE: target cords == current cords => skip move
 end
@@ -543,7 +580,9 @@ function move_rook(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 	inc::Int64 # used in for loops
 	if piece[1] == 'R'
 		if delta_x <= 1 && delta_y <= 1
-			move_piece(B,set,enemy,piece,new_cords); return
+			move_piece(B,set,enemy,piece,new_cords)
+			println("0")
+			 return
 		end
 	elseif delta_x != 0 && delta_y != 0 # illegal movement
 		println("illegal move"); return
@@ -553,23 +592,27 @@ function move_rook(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 			new_cords::Tuple{Int64,Int64} = (i,y)
 			if haskey(enemy.activeS,new_cords) == true # if enemy blocking path
 				move_piece(B,set,enemy,piece,new_cords)
+				println("0")
 			elseif haskey(set.activeS,new_cords) == true # if friendly blocking path
 				println("illegal move"); return
 			end
 		end
 		# if execution falls here then move is legal
 		move_piece(B,set,enemy,piece,cords)
+		println("0")
 	elseif delta_y != 0 # vertival movement
 		delta_y < 0 ? inc = -1 : inc = 1
 		for i = (yi+inc):inc:y
 			new_cords::Tuple{Int64,Int64} = (x,i)
 			if haskey(enemy.activeS,new_cords) == true
 				move_piece(B,set,enemy,piece,new_cords)
+				println("0")
 			elseif haskey(set.activeS,new_cords) == true
 				println("illegal move"); return
 			end
 		end
 		move_piece(B,set,enemy,piece,cords)
+		println("0")
 	end
 	# IF EXECUTION FALLS HERE: target cords == current cords => skip move
 end
@@ -594,13 +637,16 @@ function move_lancerB(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 		for i = (yi-1):-1:y
 			new_cords::Tuple{Int64,Int64} = (x,i)
 			if haskey(enemy.activeS,new_cords) == true
-				move_piece(B,set,enemy,piece,new_cords); return
+				move_piece(B,set,enemy,piece,new_cords)
+				println("0")
+				 return
 			elseif haskey(set.activeS,new_cords) == true
 				println("illegal move"); return
 			end
 		end
 		# if execution falls here then move is legal
 		move_piece(B,set,enemy,piece,cords)
+		println("0")
 	end
 	# IF EXECUTION FALLS HERE: target cords == current cords => skip move
 end
@@ -625,13 +671,16 @@ function move_lancerR(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 		for i = (yi+1):1:y
 			new_cords::Tuple{Int64,Int64} = (x,i)
 			if haskey(enemy.activeS,new_cords) == true
-				move_piece(B,set,enemy,piece,new_cords); return
+				move_piece(B,set,enemy,piece,new_cords)
+				println("0")
+				 return
 			elseif haskey(set.activeS,new_cords) == true
 				println("illegal move"); return
 			end
 		end
 		# if execution falls here then move is legal
 		move_piece(B,set,enemy,piece,cords)
+		println("0")
 	end
 	# IF EXECUTION FALLS HERE: target cords == current cords => skip move
 end
