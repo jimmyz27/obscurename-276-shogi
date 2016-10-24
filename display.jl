@@ -27,8 +27,8 @@ println()
 fill_black(black_pieces)
 init_board(GB,red_pieces,black_pieces)
 #length is the total number of moves.
-#length = get_totalMoves(filename)
-
+total_moves = get_totalMoves(filename)
+#error when getting the length
 function replay_game(length,red,black)
    i = 1
    while(i<=length)
@@ -40,7 +40,7 @@ function replay_game(length,red,black)
      println("source",source_cords)
      println("target",target_cords)
      println("i ",i%2)
-      if i%2==1
+      if i%2==0
         piece = red_pieces.activeS[(source_cords)]
         move_piece(GB,red_pieces,black_pieces,piece,target_cords)
       else
@@ -55,4 +55,4 @@ function replay_game(length,red,black)
      #the time
    end
 end
-replay_game(17,red_pieces,black_pieces)
+replay_game(total_moves,red_pieces,black_pieces)
