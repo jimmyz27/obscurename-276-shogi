@@ -3,20 +3,22 @@
 # win.jl for both aswell.
 
 include("database.jl")
-
+function input()
+	return chomp(readline(STDIN))
+end
 
 println("what type of shogi do you wish to validate standard:S, or mini:M")
 game_type = input()
 
-# if game_type == "S"
+if game_type == "S"
   include("move_functions.jl")
   include("shogi.jl")
 println("gametype is standard")
-# elseif game_type =="M"
-#   include("move_functions_minishogi.jl")
-#   include("minishogi.jl")
-#   println("gametype is mini")
-# end
+ elseif game_type =="M"
+  include("move_functions_minishogi.jl")
+  include("minishogi.jl")
+  println("gametype is mini")
+end
 #only validating for Standard shogi.
 #
 red_pieces = Pieces("red")
@@ -80,6 +82,8 @@ init_board(GB,red_pieces,black_pieces)
         move_lancerB(GB,black_pieces, red_pieces, piece, target_cords)
       end
       end
+total_moves = get_totalMoves(filename)
+
 function check_Valid_Replay(length)
   i = 1
   while(i<=length)
@@ -91,7 +95,7 @@ function check_Valid_Replay(length)
     println("source",source_cords)
     println("target",target_cords)
     println("i ",i%2)
-     if i%2==1
+     if i%2==0
        piece = red_pieces.activeS[(source_cords)]
        println("red piece ",piece)
        validate_red_moves(GB,red_pieces,black_pieces,piece,target_cords)
@@ -109,4 +113,4 @@ function check_Valid_Replay(length)
  end
 end
 
-check_Valid_Replay(19)
+check_Valid_Replay(total_moves)
