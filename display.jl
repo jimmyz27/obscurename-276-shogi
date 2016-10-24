@@ -1,19 +1,20 @@
-#load sudo data into a database
-# replay the moves using shogi.jl
-# using preexisting data base files.
-#use a while to go throught play.jl and display all the filesize
-#pass in arguent for file name
-#call the shogi file for function moves.
+#in order to compile i changed shogi.jl, board array to board1
+#and database.jl with some testcases.
+
+println("what game would you like to replay? (M for minishogi, S for standard Shogi")
+replay_type = input()
+
+if (replay_type =="S")
 include("shogi.jl")
-include("database.jl")
-
-
-#extract from database first command
-
-function get_name_of_piece()
-
+elseif (replay_type == "M")
+  include("minishogi.jl")
 end
-
+#depending on the files it will use mini shogi or shogi.
+include("database.jl")
+println("which file do you wish to replay")
+#filename = input()
+#extract from database first command
+#todo start from minishogi.jl
 red_pieces = Pieces("red")
 black_pieces = Pieces("black")
 
@@ -25,9 +26,8 @@ init_board(GB,red_pieces,black_pieces)
 #length is the total number of moves.
 
 
-function run_from_Start(length,red,black)
+function replay_game(length,red,black)
    i = 1
-
    while(i<=length)
      #get the 2nd argument from the target coordinate
      #moves the pieces inversed
@@ -39,10 +39,13 @@ function run_from_Start(length,red,black)
      println("i ",i%2)
       if i%2==1
         piece = red_pieces.activeS[(source_cords)]
+
         move_piece(GB,red_pieces,black_pieces,piece,target_cords)
+
       else
         piece = black_pieces.activeS[(source_cords)]
         move_piece(GB,black_pieces,red_pieces,piece,target_cords)
+        #moves the piece
         println("piece is",piece)
       end
 
@@ -53,4 +56,4 @@ function run_from_Start(length,red,black)
    end
 
 end
-run_from_Start(7,red_pieces,black_pieces)
+replay_game(11,red_pieces,black_pieces)
