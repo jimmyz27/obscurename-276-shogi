@@ -38,48 +38,46 @@ init_board(GB,red_pieces,black_pieces)
       #king
       #rook
       #pawn... ect.....
-
-
       function validate_red_moves(GB,red_pieces, black_pieces, piece, target_cords)
         println(piece[1])
         if piece[1] == 'p'
-        move_red_p(GB,red_pieces, black_pieces, piece, target_cords)
+        return move_red_p(GB,red_pieces, black_pieces, piece, target_cords)
         elseif piece[1] == 'g'
-        move_red_g(GB,red_pieces, black_pieces, piece, target_cords)
+        return move_red_g(GB,red_pieces, black_pieces, piece, target_cords)
         elseif piece[1] == 'k'
-        move_king(GB,red_pieces, black_pieces, piece, target_cords)
+        return move_king(GB,red_pieces, black_pieces, piece, target_cords)
         elseif piece[1] == 'r'
-        move_rook(GB,red_pieces, black_pieces, piece, target_cords)
+        return move_rook(GB,red_pieces, black_pieces, piece, target_cords)
         elseif piece[1] == 'n'
-        move_red_n(GB,red_pieces, black_pieces, piece, target_cords)
+        return move_red_n(GB,red_pieces, black_pieces, piece, target_cords)
         elseif piece[1] == 'b'
-        move_bishop(GB,red_pieces, black_pieces, piece, target_cords)
+        return move_bishop(GB,red_pieces, black_pieces, piece, target_cords)
         elseif piece[1] == 's'
-        move_red_s(GB,red_pieces, black_pieces, piece, target_cords)
+        return move_red_s(GB,red_pieces, black_pieces, piece, target_cords)
         elseif piece[1] == 'l'
-        move_lancerR(GB,red_pieces, black_pieces, piece, target_cords)
+        return move_lancerR(GB,red_pieces, black_pieces, piece, target_cords)
       end
       end
 
       function validate_black_moves(GB,black_pieces, red_pieces, piece, target_cords)
         println(piece[1])
         if piece[1] == 'p'
-        move_black_p(GB,black_pieces,red_pieces, piece,target_cords)
+        return move_black_p(GB,black_pieces,red_pieces, piece,target_cords)
         elseif piece[1] == 'g'
-        move_black_g(GB,black_pieces, red_pieces, piece, target_cords)
+        return move_black_g(GB,black_pieces, red_pieces, piece, target_cords)
         elseif piece[1] == 'k'
-        move_king(GB,black_pieces, red_pieces, piece, target_cords)
+        return move_king(GB,black_pieces, red_pieces, piece, target_cords)
         elseif piece[1] == 'r'
-        move_rook(GB,black_pieces, red_pieces, piece, target_cords)
+        return move_rook(GB,black_pieces, red_pieces, piece, target_cords)
         elseif piece[1] == 'n'
-        move_black_n(GB,black_pieces, red_pieces, piece, target_cords)
+        return move_black_n(GB,black_pieces, red_pieces, piece, target_cords)
         elseif piece[1] == 'b'
-        move_bishop(GB,black_pieces, red_pieces, piece, target_cords)
+        return move_bishop(GB,black_pieces, red_pieces, piece, target_cords)
       elseif piece[1] == 's'
-        move_black_s(GB,black_pieces, red_pieces, piece, target_cords)
+        return move_black_s(GB,black_pieces, red_pieces, piece, target_cords)
         #some issues with the lancer not moving
       elseif piece[1] == 'l'
-        move_lancerB(GB,black_pieces, red_pieces, piece, target_cords)
+        return move_lancerB(GB,black_pieces, red_pieces, piece, target_cords)
       end
       end
 total_moves = get_totalMoves(filename)
@@ -98,12 +96,22 @@ function check_Valid_Replay(length)
      if i%2==0
        piece = red_pieces.activeS[(source_cords)]
        println("red piece ",piece)
-       validate_red_moves(GB,red_pieces,black_pieces,piece,target_cords)
-     else
+			 #print out the move number that was incorrect.
+       cheat = validate_red_moves(GB,red_pieces,black_pieces,piece,target_cords)
+
+			 if (cheat == 5)
+				 println("cheating!!")
+				 println("move ID:$i")
+			 end
+		 else
        piece = black_pieces.activeS[(source_cords)]
        println("black piece ",piece)
-       validate_black_moves(GB,black_pieces,red_pieces,piece,target_cords)
-       #moves the piece
+       cheat = validate_black_moves(GB,black_pieces,red_pieces,piece,target_cords)
+			 if (cheat == 5)
+				 println("cheating !!")
+				 println("move ID:$i")
+			 end
+			 #moves the piece
      end
 
 
