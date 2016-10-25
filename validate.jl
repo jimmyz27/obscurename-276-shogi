@@ -8,14 +8,14 @@ function input()
 end
 
 println("what type of shogi do you wish to validate standard:S, or mini:M")
-game_type = input()
+game_type = get_gameType(filename)
 
-if game_type == "S"
-  include("move_functions.jl")
+if game_type == "standard"
+  include("move_functions_check.jl")
   include("shogi.jl")
-println("gametype is standard")
- elseif game_type =="M"
-  include("move_functions_minishogi.jl")
+  println("gametype is standard")
+ else
+  include("move_functions_minishogi_check.jl")
   include("minishogi.jl")
   println("gametype is mini")
 end

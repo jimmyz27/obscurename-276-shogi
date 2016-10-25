@@ -1,20 +1,15 @@
 #in order to compile i changed shogi.jl, board array to board1
 #and database.jl with some testcases.
-function input()
-	return chomp(readline(STDIN))
-end
 
-println("what game would you like to replay? (M for minishogi, S for standard Shogi")
-replay_type = input()
+replay_type = get_gameType()
 
-if (replay_type =="S")
+if (replay_type =="standard")
 include("shogi.jl")
-elseif (replay_type == "M")
+else
   include("minishogi.jl")
 end
 #depending on the files it will use mini shogi or shogi.
 include("database.jl")
-println("which file do you wish to replay")
 #filename = input()
 #extract from database first command
 #todo start from minishogi.jl
@@ -28,6 +23,8 @@ fill_black(black_pieces)
 init_board(GB,red_pieces,black_pieces)
 #length is the total number of moves.
 total_moves = get_totalMoves(filename)
+
+
 #error when getting the length
 function replay_game(length,red,black)
    i = 1
@@ -43,10 +40,12 @@ function replay_game(length,red,black)
       if i%2==0
         piece = red_pieces.activeS[(source_cords)]
         move_piece(GB,red_pieces,black_pieces,piece,target_cords)
+
       else
         piece = black_pieces.activeS[(source_cords)]
         move_piece(GB,black_pieces,red_pieces,piece,target_cords)
         #moves the piece
+
         println("piece is",piece)
       end
      display_board(GB,red_pieces,black_pieces)
