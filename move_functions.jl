@@ -21,7 +21,7 @@ function move_red_p(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 			println("0")
 			move_piece(B,set,inactive,piece,cords)
 		else
-			println("illegal move")
+			return 5
 		end
 	else # pawn is promoted to gold general - shiiiet
 		if y != 9 && x != 9 && x != 1
@@ -55,7 +55,7 @@ function move_red_p(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 			println("0")
 			move_piece(B, set, inactive, piece, cords)
 		else
-			println("illegal move")
+			return 5
 			B.status = 0
 		end
 	end
@@ -84,7 +84,7 @@ function move_black_p(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 			println("0")
 			move_piece(B,set,inactive,piece,cords)
 		else
-			println("illegal move")
+			return 5
 		end
 	else # pawn is promoted to gold general - shiiiet
 		if y != 1 && x != 1 && x != 9
@@ -116,7 +116,7 @@ function move_black_p(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 			println("0")
 			move_piece(B, set, inactive, piece, cords)
 		else
-			println("illegal move")
+			return 5
 			B.status = 0
 		end
 	end
@@ -165,7 +165,7 @@ function move_red_g(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 		println("0")
 		move_piece(B, set, inactive, piece, cords)
 	else
-		println("illegal move")
+		return 5
 		B.status = 0
 	end
 end
@@ -213,7 +213,7 @@ function move_black_g(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 		println("0")
 		move_piece(B, set, inactive, piece, cords)
 	else
-		println("illegal move")
+		return 5
 		B.status = 0
 	end
 end
@@ -225,16 +225,16 @@ function move_king(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 		x = cords[1]; y = cords[2]
 		# check for out of bounds
 		if x < 1 || x > 9
-			println("illegal move"); return
+			return 5; return
 		elseif y < 1 || y > 9
-			println("illegal move"); return
+			return 5; return
 		end
 		# take differences
 		delta_x = abs(x-xi); delta_y = abs(y-yi)
 		if delta_x > 1 || delta_y > 1
-			println("illegal move"); return
+			return 5; return
 		elseif haskey(set.activeS,cords) == true
-			println("illegal move"); return
+			return 5; return
 		else # legal move
 			println("0")
 			move_piece(B,set,enemy,piece,cords)
@@ -285,7 +285,7 @@ function move_red_s(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 			println("0")
 			move_piece(B, set, inactive, piece, cords)
 		else
-			println("illegal move")
+			return 5
 			B.status = 0
 		end
 	else 	# if silver general is promoted, becomes gold general
@@ -334,7 +334,7 @@ function move_black_s(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 			println("0")
 			move_piece(B, set, inactive, piece, cords)
 		else
-			println("illegal move")
+			return 5
 			B.status = 0
 		end
 	else 	# if silver general is promoted, becomes gold general
@@ -370,7 +370,7 @@ function move_black_s(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 			println("0")
 			move_piece(B, set, inactive, piece, cords)
 		else
-			println("illegal move")
+			return 5
 		end
 	end
 end
@@ -399,7 +399,7 @@ function move_red_n(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 	if findfirst(legal,cords) != 0
 		move_piece(B, set, inactive, piece, cords)
 	else
-		println("illegal move")
+		return 5
 	end
 end
 
@@ -426,7 +426,7 @@ function move_black_n(B::Board, set::Pieces, inactive::Pieces, piece, cords)
 	if findfirst(legal,cords) != 0
 		move_piece(B, set, inactive, piece, cords)
 	else
-		println("illegal move")
+		return 5
 		B.status = 0
 	end
 end
@@ -441,9 +441,9 @@ function move_bishop(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 	x = cords[1]; y = cords[2]
 	# check for out of bounds
 	if x < 1 || x > 9
-		println("illegal move"); return
+		return 5; return
 	elseif y < 1 || y > 9
-		println("illegal move"); return
+		return 5; return
 	end
 	# take differences
 	delta_x = abs(x-xi); delta_y = abs(y-yi)
@@ -456,7 +456,7 @@ function move_bishop(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 	end
 	# otherwise compare if unequal => illegal
 	if delta_x != delta_y
-		println("illegal move"); return
+		return 5; return
 	end
 	# if moving towards top right (9,9)
 	if x > xi && y > yi
@@ -467,7 +467,7 @@ function move_bishop(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 				move_piece(B,set,enemy,piece,new_cords)
 				return
 			elseif haskey(set.activeS,new_cords) == true
-				println("illegal move"); return
+				return 5; return
 			end
 		end
 		# if execution falls here then move is legal
@@ -481,7 +481,7 @@ function move_bishop(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 				println("0")
 				move_piece(B,set,enemy,piece,new_cords); return
 			elseif haskey(set.activeS,new_cords) == true
-				println("illegal move"); return
+				return 5; return
 			end
 		end
 		println(0)
@@ -494,7 +494,7 @@ function move_bishop(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 				println("0")
 				move_piece(B,set,enemy,piece,new_cords); return
 			elseif haskey(set.activeS,new_cords) == true
-				println("illegal move"); return
+				return 5; return
 			end
 		end
 		println("0")
@@ -507,7 +507,7 @@ function move_bishop(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 				println("0")
 				move_piece(B,set,enemy,piece,new_cords); return
 			elseif haskey(set.activeS,new_cords) == true
-				println("illegal move"); return
+				return 5; return
 			end
 		end
 		println("0")
@@ -527,7 +527,7 @@ function move_rook(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 
 	inc::Int64 # used in for loops
 	if delta_x != 0 && delta_y != 0 # illegal movement
-		println("illegal move"); return
+		return 5; return
 	elseif delta_x != 0 # horizontal movemement
 		delta_x < 0 ? inc = -1 : inc = 1
 		for i = (xi+inc):inc:x
@@ -536,7 +536,7 @@ function move_rook(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 				println("0")
 				move_piece(B,set,enemy,piece,new_cords)
 			elseif haskey(set.activeS,new_cords) == true # if friendly blocking path
-				println("illegal move"); return
+				return 5; return
 			end
 		end
 		# if execution falls here then move is legal
@@ -549,7 +549,7 @@ function move_rook(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 			if haskey(enemy.activeS,new_cords) == true
 				move_piece(B,set,enemy,piece,new_cords)
 			elseif haskey(set.activeS,new_cords) == true
-				println("illegal move"); return
+				return 5; return
 			end
 		end
 		println("0")
@@ -572,16 +572,16 @@ function move_lancerB(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 	delta_x = x - xi; delta_y = y - yi;
 
 	if delta_x != 0 # illegal movement
-		println("illegal move"); return
+		return 5; return
 	elseif delta_y > 0 # backwards movement
-		println("illegal move"); return
+		return 5; return
 	else
 		for i = (yi-1):-1:y
 			new_cords::Tuple{Int64,Int64} = (x,i)
 			if haskey(enemy.activeS,new_cords) == true
 				move_piece(B,set,enemy,piece,new_cords); return
 			elseif haskey(set.activeS,new_cords) == true
-				println("illegal move"); return
+				return 5; return
 			end
 		end
 		# if execution falls here then move is lega
@@ -604,7 +604,7 @@ function move_lancerR(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 	delta_x = x - xi; delta_y = y - yi;
 
 	if delta_x != 0 # illegal movement
-		println("illegal move"); return
+		return 5; return
 	elseif delta_y < 0 # backwards movement
 			println("illegal"); return
 	else
@@ -614,7 +614,7 @@ function move_lancerR(B::Board, set::Pieces, enemy::Pieces, piece, cords)
 				println("0")
 				move_piece(B,set,enemy,piece,new_cords); return
 			elseif haskey(set.activeS,new_cords) == true
-				println("illegal move"); return
+				return 5; return
 			end
 		end
 		# if execution falls here then move is legal
